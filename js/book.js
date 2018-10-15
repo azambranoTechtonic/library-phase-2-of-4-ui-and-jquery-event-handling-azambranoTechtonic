@@ -10,3 +10,37 @@ var Book = function (oArgs)
   this.rating = oArgs.rating;
   return false;
 };
+
+Book.prototype.editBook = function(oArgs)
+{
+
+  if (oArgs.hasOwnProperty('cover')) {
+    this.title = oArgs.title;
+  }
+
+  if (oArgs.hasOwnProperty('title')) {
+    this.title = oArgs.title;
+  }
+
+  if (oArgs.hasOwnProperty('author')) {
+    this.synopsis = oArgs.author;
+  }
+
+  if (oArgs.hasOwnProperty('synopsis')) {
+    this.author = oArgs.synopsis;
+  }
+
+  if (oArgs.hasOwnProperty('numberOfPages')) {
+    this.numberOfPages = oArgs.numberOfPages;
+  }
+
+  if (oArgs.hasOwnProperty('publishDate')) {
+    this.publishDate = oArgs.publishDate;
+  }
+
+  if (oArgs.hasOwnProperty('rating')) {
+    this.rating = oArgs.rating;
+  }
+
+  return this;
+};

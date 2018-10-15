@@ -113,7 +113,31 @@ Library.prototype.getRandomAuthorName = function()
 Library.prototype.search = function(searchParams) //searchParams is an object
 {//remove below code and implement your own search function
 
+  console.log(searchParams)
   //TODO: ADD YOUR OWN SEARCH FUNCTION HERE
+
+  var foundTitle = [];
+  var foundAuthor = [];
+  var foundResult = [];
+
+  if (searchParams.hasOwnProperty('title')) {
+    foundTitle = this.getBookByTitle(searchParams.title);
+  }
+
+  if (searchParams.hasOwnProperty('author')) {
+    foundAuthor = this.getBooksByAuthor(searchParams.author);
+  }
+
+  foundResult = foundTitle.concat(foundAuthor);
+
+  var unique_array = []
+  for(let i = 0;i < foundResult.length; i++){
+    if(unique_array.indexOf(foundResult[i]) == -1){
+        unique_array.push(foundResult[i])
+    }
+  }
+
+  return unique_array;
 };
 
 Library.prototype.getStorage = function()
