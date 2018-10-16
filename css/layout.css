@@ -97,6 +97,10 @@ header {
   color: green;
 }
 
+#add-books-modal{
+  width: 100%;
+}
+
 #author-display-modal {
   font-size: 1.4em;
 }

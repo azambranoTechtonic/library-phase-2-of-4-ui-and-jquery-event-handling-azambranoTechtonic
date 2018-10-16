@@ -96,7 +96,7 @@ Library.prototype.addBooks = function(books)
 Library.prototype.getAuthors = function()
 {
   if (window.bookShelf.length) {
-    return window.bookShelf.unique("title");
+    return window.bookShelf.unique("author");
   }
   return [];
 };

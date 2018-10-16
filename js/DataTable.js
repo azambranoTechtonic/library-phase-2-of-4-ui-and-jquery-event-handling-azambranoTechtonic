@@ -10,7 +10,7 @@ DataTable.prototype.init = function()
 {
   this._bindEvents();
   this._bindCustomListeners();
-  this._updateStorage(); //all logic branches of _updateStorage call _updateTable, so this._updateTable is no longer necessary
+  this._updateStorage(); //all logic branches of _updateStorage call _updateTable, so this._updateTable is no longer necessary\
 };
 
 DataTable.prototype._bindEvents = function ()
@@ -20,15 +20,12 @@ DataTable.prototype._bindEvents = function ()
 
 DataTable.prototype._bindCustomListeners = function ()
 {
-
   // $('#search-form').on('submit', $.proxy(this._handleSearch, this, 'objUpdate', this.search()));
   $('#search-form').on('submit',$.proxy(this._handleSearch,this));
   $(document).on('objUpdate', $.proxy(this._updateTable, this));
   $('#show-books-button').on('click',$.proxy(this._updateStorage,this));
   //This is a global object that can be accessed as window.bookShelf. This will hold the state of your bookShelf.
 };
-
-
 
 DataTable.prototype._handleSearch = function (e)
 {

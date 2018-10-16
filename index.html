@@ -59,7 +59,7 @@
         </div>
         <button type="submit" class="btn btn-default">Search</button>
         <button id="random-author-button" class="btn btn-default pull-right" type="button" data-toggle="modal" data-target="#author-display-modal">Random Author</button>
-        <button id="show-authors-button" class="btn btn-default pull-right" type="button" data-toggle="modal" data-target="#author-display-modal">Show All Authors</button>
+        <button id="show-authors-button" class="btn btn-default pull-right" type="button" data-toggle="modal" data-target="#authors-display-modal">Show All Authors</button>
       </form>
 
     </nav>
@@ -103,14 +103,15 @@
               </div>
               <div class="form-group">
                 <label for="synopsis-add-input">Synopsis</label><br>
-                <textarea id="synopsis-add-input" name="textarea" cols="75" rows="5" maxlength="250">No synopsis available.</textarea>
+                <textarea id="synopsis-add-input" name="textarea" cols="66" rows="5" maxlength="250">No synopsis available.</textarea>
               </div>
-
 
               <div class="form-group">
-                <label for="cover-add-input">Book cover</label>
-                <input id="cover-add-input" type="file" accept=".jpg, .jpeg, .png">
+                    <label for="cover-add-input">Book cover</label>
+                    <input id="cover-add-input" type="file" accept=".jpg, .jpeg, .png">
+                    <img id="addBookCoverImage" class="tableImg" alt="book cover image"/>
               </div>
+
               <button id="queue-book-button" class="btn btn-default pull-left" type="submit">Queue Book To Add</button>
               <button class="btn btn-default btn-add pull-right" type="button" data-dismiss="modal">Add Books To Library</button>
               <div class="counter-message pull-right">
@@ -153,11 +154,11 @@
         <div class="modal-content">
           <div class="modal-header">
             <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"></h4>
+            <h4 id="mod-book-title" class="modal-title"></h4>
           </div>
           <div class="modal-body">
-            <div class="col-sm-6 book-cover"></div>
-            <div class="col-sm-6 modal-sidebar"></div>
+            <div id="mod-book-cover" class="col-sm-6 book-cover"></div>
+            <div id="mod-book-side" class="col-sm-6 modal-sidebar"></div>
           </div>
           <div class="modal-footer">
             <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
@@ -175,7 +176,7 @@
             <h4 class="modal-title"></h4>
           </div>
           <div class="modal-body">
-            <ul>
+            <ul id="author-ul" >
               <!-- jQuery will fill list items -->
             </ul>
           </div>
@@ -186,6 +187,25 @@
       </div>
     </div>
 
+    <!-- Authors Modal -->
+    <div id="authors-display-modal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"></h4>
+          </div>
+          <div class="modal-body">
+            <ul id="authors-ul" >
+              <!-- jQuery will fill list items -->
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Table -->
 
