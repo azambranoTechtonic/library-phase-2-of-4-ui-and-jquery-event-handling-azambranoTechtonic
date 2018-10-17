@@ -20,25 +20,23 @@ DataTable.prototype._bindEvents = function ()
 
 DataTable.prototype._bindCustomListeners = function ()
 {
-  // $('#search-form').on('submit', $.proxy(this._handleSearch, this, 'objUpdate', this.search()));
   $('#search-form').on('submit',$.proxy(this._handleSearch,this));
   $(document).on('objUpdate', $.proxy(this._updateTable, this));
   $('#show-books-button').on('click',$.proxy(this._updateStorage,this));
-  $(document).on('click',".title-cell",$.proxy(this._editRow,this));
-  $(document).on('click',".edit-button",$.proxy(this._editRow2,this));
+  $(document).on('click',".edit-button",$.proxy(this._editRow,this));
   //This is a global object that can be accessed as window.bookShelf. This will hold the state of your bookShelf.
 };
 
 DataTable.prototype._editRow = function (e)
 {
 
-  var clickedCell= $(e.target).closest("td");
-  var reqBook = this.getBookByTitle(clickedCell.text())
+  var clickedCell= $(e.target).closest("tr").find(".title-cell").text();
+  var reqBook = this.getBookByTitle(clickedCell)
 
   if (reqBook.length > 0) {
 
-    var img = $('<img>').addClass('tableImg').attr('src', reqBook[0].cover);
-    $('#editBookCoverImage').html(img);
+    //var img = $('<img>').addClass('tableImg').attr('src', reqBook[0].cover);
+    $('#editBookCoverImage').attr('src', reqBook[0].cover); //.html(img);
 
     //$('#cover-edit-input').val(reqBook[0].cover);
     $('#title-edit-input').val(reqBook[0].title);
@@ -51,35 +49,6 @@ DataTable.prototype._editRow = function (e)
     $('#edit-books-modal').modal('show');
 
   }
-
-  return false;
-};
-
-
-DataTable.prototype._editRow = function (e)
-{
-
-  alert("Click Edit!!!");
-
-  // var clickedCell= $(e.target).closest("td");
-  // var reqBook = this.getBookByTitle(clickedCell.text())
-  //
-  // if (reqBook.length > 0) {
-  //
-  //   var img = $('<img>').addClass('tableImg').attr('src', reqBook[0].cover);
-  //   $('#editBookCoverImage').html(img);
-  //
-  //   //$('#cover-edit-input').val(reqBook[0].cover);
-  //   $('#title-edit-input').val(reqBook[0].title);
-  //   $('#author-edit-input').val(reqBook[0].author);
-  //   $('#synopsis-edit-input').val(reqBook[0].synopsis);
-  //   $('#pages-edit-input').val(reqBook[0].numberOfPages);
-  //   $('#date-edit-input').val(reqBook[0].publishDate);
-  //   $('#rating-edit-input').val(reqBook[0].rating);
-  //
-  //   $('#edit-books-modal').modal('show');
-  //
-  // }
 
   return false;
 };

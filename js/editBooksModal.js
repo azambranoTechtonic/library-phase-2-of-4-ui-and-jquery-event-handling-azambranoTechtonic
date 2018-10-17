@@ -21,7 +21,9 @@ EditBooksModal.prototype._handleImageUploadEdit = function ()
   var fileEdit = document.querySelector('input[type=file]').files[0];
   var readerEdit = new FileReader();
 
+
   readerEdit.addEventListener("load", function () {
+    console.log("readeredit evenmt!!!")
     previewEdit.src = readerEdit.result;
   }, false);
 
@@ -34,7 +36,8 @@ EditBooksModal.prototype._bindEvents = function ()
 {
   $('#edit-books-modal').on('hidden.bs.modal', $.proxy(this._updateBooks,this));
   //$('#cover-edit-input').on('change', $.proxy(this._handleImageUploadEdit,this));
-  $(document).on('change','#cover-edit-input',$.proxy(this._handleImageUploadEdit,this));
+  $('#cover-edit-input').on('change', $.proxy(this._handleImageUploadEdit,this));
+  //$(document).on('change','#cover-edit-input',$.proxy(this._handleImageUploadEdit,this));
   //$(document).on('click',".title-cell",$.proxy(this._loadBookHandler,this));
 };
 
