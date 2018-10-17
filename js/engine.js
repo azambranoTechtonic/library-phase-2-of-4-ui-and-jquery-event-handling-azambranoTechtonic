@@ -23,6 +23,28 @@ Library.prototype.addBook = function(book)
   return true;
 };
 
+Library.prototype.editBook = function(book)
+{
+  for(var i = 0; i < window.bookShelf.length; i++) {
+    if(book.title.toLowerCase().trim() === window.bookShelf[i].title.toLowerCase().trim()){
+
+      window.bookShelf[i].cover = book.cover;
+      window.bookShelf[i].author = book.author;
+      window.bookShelf[i].synopsis = book.synopsis;
+      window.bookShelf[i].numberOfPages = book.numberOfPages;
+      window.bookShelf[i].publishDate = book.publishDate;
+      window.bookShelf[i].rating = book.rating;
+
+      console.log("Book: " + book.title + " Updated.");
+      this.setStorage();
+
+      return true;
+    }
+  }
+  console.log("Sorry " + book.title + " is not in book shelf. ");
+  return false;
+};
+
 Library.prototype.removeBookByTitle = function(title)
 {
   for (var i = 0; i < window.bookShelf.length; i++) {

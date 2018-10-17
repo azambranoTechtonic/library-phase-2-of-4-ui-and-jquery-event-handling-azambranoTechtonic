@@ -23,12 +23,12 @@ SuggestBooksModal.prototype._suggestBooksHandler = function ()
 
   var myObj = this.getRandomBook();
 
-  $('#mod-book-title').text(myObj.title);
+  $('#mod-book-title').text(myObj.title + " By " + myObj.author);
 
   var img = $('<img>').addClass('tableImg').attr('src', myObj.cover);
   $("#mod-book-cover").html(img);
 
-  $("#mod-book-side").append('<h5>' + myObj.author + '</h5>');
+  //$("#mod-book-side").append('<h5>' + myObj.author + '</h5>');
   $("#mod-book-side").append('<h5>' + myObj.synopsis + '</h5>');
   $("#mod-book-side").append('<h5>' + myObj.numberOfPages + '</h5>');
   $("#mod-book-side").append('<h5>Publication date: ' + myObj.publishDate + '</h5>');

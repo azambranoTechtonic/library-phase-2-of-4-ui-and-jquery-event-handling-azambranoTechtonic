@@ -15,7 +15,7 @@ Book.prototype.editBook = function(oArgs)
 {
 
   if (oArgs.hasOwnProperty('cover')) {
-    this.title = oArgs.title;
+    this.cover = oArgs.cover;
   }
 
   if (oArgs.hasOwnProperty('title')) {

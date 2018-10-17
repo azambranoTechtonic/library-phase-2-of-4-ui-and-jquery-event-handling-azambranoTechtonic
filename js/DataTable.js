@@ -24,7 +24,64 @@ DataTable.prototype._bindCustomListeners = function ()
   $('#search-form').on('submit',$.proxy(this._handleSearch,this));
   $(document).on('objUpdate', $.proxy(this._updateTable, this));
   $('#show-books-button').on('click',$.proxy(this._updateStorage,this));
+  $(document).on('click',".title-cell",$.proxy(this._editRow,this));
+  $(document).on('click',".edit-button",$.proxy(this._editRow2,this));
   //This is a global object that can be accessed as window.bookShelf. This will hold the state of your bookShelf.
+};
+
+DataTable.prototype._editRow = function (e)
+{
+
+  var clickedCell= $(e.target).closest("td");
+  var reqBook = this.getBookByTitle(clickedCell.text())
+
+  if (reqBook.length > 0) {
+
+    var img = $('<img>').addClass('tableImg').attr('src', reqBook[0].cover);
+    $('#editBookCoverImage').html(img);
+
+    //$('#cover-edit-input').val(reqBook[0].cover);
+    $('#title-edit-input').val(reqBook[0].title);
+    $('#author-edit-input').val(reqBook[0].author);
+    $('#synopsis-edit-input').val(reqBook[0].synopsis);
+    $('#pages-edit-input').val(reqBook[0].numberOfPages);
+    $('#date-edit-input').val(reqBook[0].publishDate);
+    $('#rating-edit-input').val(reqBook[0].rating);
+
+    $('#edit-books-modal').modal('show');
+
+  }
+
+  return false;
+};
+
+
+DataTable.prototype._editRow = function (e)
+{
+
+  alert("Click Edit!!!");
+
+  // var clickedCell= $(e.target).closest("td");
+  // var reqBook = this.getBookByTitle(clickedCell.text())
+  //
+  // if (reqBook.length > 0) {
+  //
+  //   var img = $('<img>').addClass('tableImg').attr('src', reqBook[0].cover);
+  //   $('#editBookCoverImage').html(img);
+  //
+  //   //$('#cover-edit-input').val(reqBook[0].cover);
+  //   $('#title-edit-input').val(reqBook[0].title);
+  //   $('#author-edit-input').val(reqBook[0].author);
+  //   $('#synopsis-edit-input').val(reqBook[0].synopsis);
+  //   $('#pages-edit-input').val(reqBook[0].numberOfPages);
+  //   $('#date-edit-input').val(reqBook[0].publishDate);
+  //   $('#rating-edit-input').val(reqBook[0].rating);
+  //
+  //   $('#edit-books-modal').modal('show');
+  //
+  // }
+
+  return false;
 };
 
 DataTable.prototype._handleSearch = function (e)
@@ -76,13 +133,20 @@ DataTable.prototype._createRow = function (book)
   var tr = $('<tr>');
   //This created our delete column
   var deleteInput = $('<input>').attr('type', 'checkbox');
+  var editInput = $('<button class="edit-button">').attr('type', 'click').text("Edit...");
   for(var key in book){
-    var td = $('<td>');
+    if (key === 'title') {
+      var td = $('<td class="title-cell">');
+    } else {
+      var td = $('<td>');
+    }
     if (key === 'cover') {
       var img = $('<img>').addClass('tableImg').attr('src', book[key]);
       $(td).html(img);
     } else if(key === 'rating'){
       $(td).html(this._stars(book[key]));
+    } else if(key === 'editBook'){
+      $(td).html(editInput);
     } else {
       $(td).html(key === 'synopsis' ? book[key].substring(0,85) + "..." : book[key]);
     }

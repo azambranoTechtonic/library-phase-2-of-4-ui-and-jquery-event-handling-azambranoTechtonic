@@ -123,6 +123,58 @@
       </div>
     </div>
 
+    <!-- Edit Books Modal -->
+    <div id="edit-books-modal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Edit Book</h4>
+          </div>
+          <div class="modal-body">
+            <form class="clearfix" autocomplete="off">
+              <div class="form-group">
+                <label for="title-edit-input">Title *</label>
+                <input id="title-edit-input" class="form-control" type="text" required="true" autofocus="autofocus">
+              </div>
+              <div class="row">
+                <div class="form-group col-xs-9">
+                  <label for="author-edit-input">Author *</label>
+                  <input id="author-edit-input" class="form-control" type="text" required="true">
+                </div>
+                <div class="form-group col-xs-3">
+                  <label for="rating-edit-input">Star Rating</label>
+                  <input id="rating-edit-input" class="form-control" type="number" min="0" max="5">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-xs-6">
+                  <label for="pages-edit-input">Pages</label>
+                  <input id="pages-edit-input" class="form-control" type="number" value="300">
+                </div>
+                <div class="form-group col-xs-6">
+                  <label for="date-edit-input">Publication Date</label>
+                  <input id="date-edit-input" class="form-control" type="date" value="2017-01-01">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="synopsis-edit-input">Synopsis</label><br>
+                <textarea id="synopsis-edit-input" name="textarea" cols="66" rows="5" maxlength="250">No synopsis available.</textarea>
+              </div>
+
+              <div class="form-group">
+                    <label for="cover-edit-input">Book cover</label>
+                    <input id="cover-edit-input" type="file" accept=".jpg, .jpeg, .png">
+                    <img id="editBookCoverImage" class="tableImg" alt="book cover image"/>
+              </div>
+
+              <button class="btn btn-default btn-add pull-right" type="button" data-dismiss="modal">Update Book ...</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Remove Books Modal -->
     <div id="remove-books-modal" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
@@ -259,6 +311,7 @@
   <script src="js/removeBooksModal.js" charset="utf-8"></script>
   <script src="js/randomAuthorModal.js" charset="utf-8"></script>
   <script src="js/suggestBookModal.js" charset="utf-8"></script>
+  <script src="js/editBooksModal.js" charset="utf-8"></script>
 
   <!-- Random Book Modal -->
 
