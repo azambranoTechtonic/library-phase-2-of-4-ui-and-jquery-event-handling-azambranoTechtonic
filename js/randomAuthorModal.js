@@ -31,6 +31,7 @@ RandomAuthorModal.prototype._handleDisplayAuthor = function ()
 
 RandomAuthorModal.prototype._removeData = function ()
 {
+  //clear
   $("#author-ul").empty();
 };
 

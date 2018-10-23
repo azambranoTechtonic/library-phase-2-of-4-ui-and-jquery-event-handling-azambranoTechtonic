@@ -18,7 +18,7 @@ AddBooksModal.prototype.init = function()
 AddBooksModal.prototype._handleImageUpload = function ()
 {
   var preview = document.querySelector('#addBookCoverImage');
-  var file = document.querySelector('input[type=file]').files[0];
+  var file = document.querySelector('#cover-add-input').files[0];
   var reader = new FileReader();
 
   reader.addEventListener("load", function () {
@@ -33,7 +33,7 @@ AddBooksModal.prototype._handleImageUpload = function ()
 AddBooksModal.prototype._bindEvents = function ()
 {
   $('button#queue-book-button').on('click',$.proxy(this._queueBookHandler,this));
-  $('#add-books-modal').on('hidden.bs.modal', $.proxy(this._addBooks,this));
+  $('#add-books-button').on('click', $.proxy(this._addBooksHandler,this));
   $('#cover-add-input').on('change', $.proxy(this._handleImageUpload,this));
 };
 
@@ -44,38 +44,34 @@ AddBooksModal.prototype._queueBookHandler = function (e)
 
   e.preventDefault();
 
-  var myBook = new Book({cover: $('#addBookCoverImage').attr('src'),
-                        title: $('#title-add-input').val(),
-                        author: $('#author-add-input').val(),
-                        synopsis: $('#synopsis-add-input').val(),
-                        numberOfPages: $('#pages-add-input').val(),
-                        publishDate: $('#date-add-input').val(),
-                        rating: $('#rating-add-input').val()});
+  var mySerBook = $("#form-add-book").serializeArray();
+  var myBook = {};
+
+  myBook['cover'] = $('#addBookCoverImage').attr('src')
+  $.each(mySerBook, function(index, entry) {
+    if (entry.value) {
+      myBook[entry.name] = entry.value;
+    }
+  });
+
+  console.log(myBook);
 
   arrQueue.push(myBook);
 
-  $('#add-books-counter').text(arrQueue.length);
-
+  document.getElementById("form-add-book").reset();
   $('#addBookCoverImage').removeAttr('src');
-  $('#cover-add-input').val('');
-  $('#title-add-input').val('');
-  $('#author-add-input').val('');
-  $('#synopsis-add-input').val('');
-  $('#pages-add-input').val('300');
-  $('#date-add-input').val('2017-01-01');
-  $('#rating-add-input').val('');
+
+  $('#add-books-counter').text(arrQueue.length);
 
   return true;
 
 };
 
-AddBooksModal.prototype._addBooks = function ()
+AddBooksModal.prototype._addBooksHandler = function ()
 {
   this.addBooks(arrQueue);
-
-  window.bookShelf = this.getStorage();
+  $('#add-books-modal').modal('hide');
   this.handleEventTrigger('objUpdate',window.bookShelf);
-
 
 };
 

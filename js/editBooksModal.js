@@ -18,27 +18,24 @@ EditBooksModal.prototype.init = function()
 EditBooksModal.prototype._handleImageUploadEdit = function ()
 {
   var previewEdit = document.querySelector('#editBookCoverImage');
-  var fileEdit = document.querySelector('input[type=file]').files[0];
+  var fileEdit = document.querySelector('#cover-edit-input').files[0];
   var readerEdit = new FileReader();
 
 
   readerEdit.addEventListener("load", function () {
-    console.log("readeredit evenmt!!!")
     previewEdit.src = readerEdit.result;
   }, false);
 
   if (fileEdit) {
-    return reader.readAsDataURL(fileEdit);
+    return readerEdit.readAsDataURL(fileEdit);
   }
 };
 
 EditBooksModal.prototype._bindEvents = function ()
 {
   $('#edit-books-modal').on('hidden.bs.modal', $.proxy(this._updateBooks,this));
-  //$('#cover-edit-input').on('change', $.proxy(this._handleImageUploadEdit,this));
   $('#cover-edit-input').on('change', $.proxy(this._handleImageUploadEdit,this));
-  //$(document).on('change','#cover-edit-input',$.proxy(this._handleImageUploadEdit,this));
-  //$(document).on('click',".title-cell",$.proxy(this._loadBookHandler,this));
+
 };
 
 EditBooksModal.prototype._loadBookHandler = function (e)
@@ -86,7 +83,6 @@ EditBooksModal.prototype._updateBooks = function ()
   $('#date-edit-input').val('2017-01-01');
   $('#rating-edit-input').val('');
 
-  window.bookShelf = this.getStorage();
   this.handleEventTrigger('objUpdate',window.bookShelf);
 
 };

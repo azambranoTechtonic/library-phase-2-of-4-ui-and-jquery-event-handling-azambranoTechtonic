@@ -53,6 +53,7 @@
       <form id="search-form" class="navbar-form text-center">
         <button id="show-books-button" class="btn btn-default pull-left" type="button">Show All Books</button>
         <button id="random-book-button" class="btn btn-default pull-left" type="button" data-toggle="modal" data-target="#book-display-modal">Suggest Book</button>
+        <button id="delete-books-button" class="btn btn-default pull-left" type="button">Delete Books</button>
         <div class="form-group">
           <input id="title-search-input" class="form-control" type="text" placeholder="Title" name="title">
           <input id="author-search-input" class="form-control" type="text" placeholder="Author" name="author">
@@ -76,34 +77,34 @@
             <h4 class="modal-title">Add Book</h4>
           </div>
           <div class="modal-body">
-            <form class="clearfix" autocomplete="off">
+            <form id="form-add-book" class="clearfix" autocomplete="off">
               <div class="form-group">
                 <label for="title-add-input">Title *</label>
-                <input id="title-add-input" class="form-control" type="text" required="true" autofocus="autofocus">
+                <input id="title-add-input" name="title" class="form-control" type="text" required="true" autofocus="autofocus">
               </div>
               <div class="row">
                 <div class="form-group col-xs-9">
                   <label for="author-add-input">Author *</label>
-                  <input id="author-add-input" class="form-control" type="text" required="true">
+                  <input id="author-add-input" name="author" class="form-control" type="text" required="true">
                 </div>
                 <div class="form-group col-xs-3">
                   <label for="rating-add-input">Star Rating</label>
-                  <input id="rating-add-input" class="form-control" type="number" min="0" max="5">
+                  <input id="rating-add-input" name="rating" class="form-control" type="number" min="0" max="5">
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-xs-6">
                   <label for="pages-add-input">Pages</label>
-                  <input id="pages-add-input" class="form-control" type="number" value="300">
+                  <input id="pages-add-input" name="numberOfPages" class="form-control" type="number" value="300">
                 </div>
                 <div class="form-group col-xs-6">
                   <label for="date-add-input">Publication Date</label>
-                  <input id="date-add-input" class="form-control" type="date" value="2017-01-01">
+                  <input id="date-add-input" name="publishDate" class="form-control" type="date" value="2017-01-01">
                 </div>
               </div>
               <div class="form-group">
                 <label for="synopsis-add-input">Synopsis</label><br>
-                <textarea id="synopsis-add-input" name="textarea" cols="66" rows="5" maxlength="250">No synopsis available.</textarea>
+                <textarea id="synopsis-add-input" name="synopsis" cols="66" rows="5" maxlength="250">No synopsis available.</textarea>
               </div>
 
               <div class="form-group">
@@ -113,7 +114,7 @@
               </div>
 
               <button id="queue-book-button" class="btn btn-default pull-left" type="submit">Queue Book To Add</button>
-              <button class="btn btn-default btn-add pull-right" type="button" data-dismiss="modal">Add Books To Library</button>
+              <button id="add-books-button" class="btn btn-default btn-add pull-right" type="button" data-dismiss="modal">Add Books To Library</button>
               <div class="counter-message pull-right">
                 <span id="add-books-counter">0</span> book(s) ready to add!&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;&nbsp;
               </div>
@@ -184,7 +185,7 @@
             <h4 class="modal-title">Remove Books</h4>
           </div>
           <div class="modal-body">
-            <form class="clearfix">
+            <form id="form-remove-book" class="clearfix">
               <div class="form-group">
                 <label for="title-remove-input">Remove By Title</label>
                 <input id="title-remove-input" class="form-control" type="text" placeholder="Title" autofocus="autofocus">

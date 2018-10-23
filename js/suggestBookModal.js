@@ -33,24 +33,13 @@ SuggestBooksModal.prototype._suggestBooksHandler = function ()
   $("#mod-book-side").append('<h5>' + myObj.numberOfPages + '</h5>');
   $("#mod-book-side").append('<h5>Publication date: ' + myObj.publishDate + '</h5>');
 
-  $("#mod-book-side").append(this._stars(myObj.rating));
+  $("#mod-book-side").append(this.stars(myObj.rating));
 
   $('#book-display-modal').modal('show');
 
 
   return false;
 
-};
-
-SuggestBooksModal.prototype._stars = function (rating)
-{
-  var $div = $('<div>');
-  for(var i=0; i<5; i++) {
-    var $star = $('<span>').addClass('fa fa-star');
-    if(i<rating){ $star.addClass('checked'); }
-    $div.append($star);
-  }
-  return $div;
 };
 
 SuggestBooksModal.prototype._removeData = function ()

@@ -24,8 +24,26 @@ DataTable.prototype._bindCustomListeners = function ()
   $(document).on('objUpdate', $.proxy(this._updateTable, this));
   $('#show-books-button').on('click',$.proxy(this._updateStorage,this));
   $(document).on('click',".edit-button",$.proxy(this._editRow,this));
+  $('#delete-books-button').on('click',$.proxy(this._deleteBooks,this));
   //This is a global object that can be accessed as window.bookShelf. This will hold the state of your bookShelf.
 };
+
+
+DataTable.prototype._deleteBooks = function (e)
+{
+
+    var checkedItems = $('.tr-book:has(input:checked)').closest("tr").find(".title-cell");
+
+    for(var i=0; i<checkedItems.length; i++) {
+
+      this.removeBookByTitle(checkedItems[i].innerText);
+
+    }
+
+  this.handleEventTrigger('objUpdate',window.bookShelf);
+
+};
+
 
 DataTable.prototype._editRow = function (e)
 {
@@ -99,9 +117,9 @@ DataTable.prototype._createHead = function (book)
 
 DataTable.prototype._createRow = function (book)
 {
-  var tr = $('<tr>');
+  var tr = $('<tr class="tr-book">');
   //This created our delete column
-  var deleteInput = $('<input>').attr('type', 'checkbox');
+  var deleteInput = $('<input id="del-check">').attr('type', 'checkbox');
   var editInput = $('<button class="edit-button">').attr('type', 'click').text("Edit...");
   for(var key in book){
     if (key === 'title') {
@@ -113,7 +131,7 @@ DataTable.prototype._createRow = function (book)
       var img = $('<img>').addClass('tableImg').attr('src', book[key]);
       $(td).html(img);
     } else if(key === 'rating'){
-      $(td).html(this._stars(book[key]));
+      $(td).html(this.stars(book[key]));
     } else if(key === 'editBook'){
       $(td).html(editInput);
     } else {
@@ -125,17 +143,6 @@ DataTable.prototype._createRow = function (book)
   $(deleteTd).append(deleteInput);
   tr.append(deleteTd);
   return tr;
-};
-
-DataTable.prototype._stars = function (rating)
-{
-  var $div = $('<div>');
-  for(var i=0; i<5; i++) {
-    var $star = $('<span>').addClass('fa fa-star');
-    if(i<rating){ $star.addClass('checked'); }
-    $div.append($star);
-  }
-  return $div;
 };
 
 DataTable.prototype._updateStorage = function ()

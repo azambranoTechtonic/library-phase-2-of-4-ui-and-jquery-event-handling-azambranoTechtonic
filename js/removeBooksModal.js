@@ -15,13 +15,6 @@ RemoveBooksModal.prototype.init = function()
 RemoveBooksModal.prototype._bindEvents = function ()
 {
   $('#remove-book-button').on('click',$.proxy(this._removeBooksHandler,this));
-  $('#remove-books-modal').on('hidden.bs.modal', $.proxy(this._resetForm,this));
-};
-
-RemoveBooksModal.prototype._resetForm = function ()
-{
-  $('#title-remove-input').val('');
-  $('#author-remove-input').val('');
 };
 
 RemoveBooksModal.prototype._removeBooksHandler = function ()
@@ -36,8 +29,10 @@ RemoveBooksModal.prototype._removeBooksHandler = function ()
     this.removeBookByAuthor(delAuthor);
   }
 
-  window.bookShelf = this.getStorage();
+  document.getElementById("form-remove-book").reset();
+
   this.handleEventTrigger('objUpdate',window.bookShelf);
+
 };
 
 $(function()

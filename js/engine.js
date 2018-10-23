@@ -135,6 +135,7 @@ Library.prototype.getRandomAuthorName = function()
 Library.prototype.search = function(searchParams) //searchParams is an object
 {//remove below code and implement your own search function
 
+  //refactor to factory
   console.log(searchParams)
   //TODO: ADD YOUR OWN SEARCH FUNCTION HERE
 
@@ -176,4 +177,15 @@ Library.prototype.setStorage = function()
 {
   localStorage.setItem('myLibrary', JSON.stringify(window.bookShelf));
   return console.log("STORAGE HAS BEEN SET");
+};
+
+Library.prototype.stars = function (rating)
+{
+  var $div = $('<div>');
+  for(var i=0; i<5; i++) {
+    var $star = $('<span>').addClass('fa fa-star');
+    if(i<rating){ $star.addClass('checked'); }
+    $div.append($star);
+  }
+  return $div;
 };
