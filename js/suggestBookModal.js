@@ -1,50 +1,50 @@
-function SuggestBooksModal()
-{
-  Library.call(this); //resets context
-  this.$container = $('#book-display-modal');//assign based on what targeting
-};
+class SuggestBooksModal extends Library {
 
-//Creates new library object
-SuggestBooksModal.prototype = Object.create(Library.prototype);
+  constructor(oArgs) { //class constructor
+    super();
+    this.$container = $('#book-display-modal');
+  }
 
-SuggestBooksModal.prototype.init = function()
-{
-  this._bindEvents();
-};
+  init()
+  {
+    this._bindEvents();
+  };
 
-SuggestBooksModal.prototype._bindEvents = function ()
-{
-  $('button#random-book-button').on('click',$.proxy(this._suggestBooksHandler,this));
-  $('#book-display-modal').on('hidden.bs.modal', $.proxy(this._removeData,this));
-};
+  _bindEvents()
+  {
+    $('button#random-book-button').on('click',$.proxy(this._suggestBooksHandler,this));
+    $('#book-display-modal').on('hidden.bs.modal', $.proxy(this._removeData,this));
+  };
 
-SuggestBooksModal.prototype._suggestBooksHandler = function ()
-{
+  _suggestBooksHandler()
+  {
 
-  var myObj = this.getRandomBook();
+    var myObj = this.getRandomBook();
 
-  $('#mod-book-title').text(myObj.title + " By " + myObj.author);
+    $('#mod-book-title').text(myObj.title + " By " + myObj.author);
 
-  var img = $('<img>').addClass('tableImg').attr('src', myObj.cover);
-  $("#mod-book-cover").html(img);
+    var img = $('<img>').addClass('tableImg').attr('src', myObj.cover);
+    $("#mod-book-cover").html(img);
 
-  //$("#mod-book-side").append('<h5>' + myObj.author + '</h5>');
-  $("#mod-book-side").append('<h5>' + myObj.synopsis + '</h5>');
-  $("#mod-book-side").append('<h5>' + myObj.numberOfPages + '</h5>');
-  $("#mod-book-side").append('<h5>Publication date: ' + myObj.publishDate + '</h5>');
+    //$("#mod-book-side").append('<h5>' + myObj.author + '</h5>');
+    $("#mod-book-side").append('<h5>' + myObj.synopsis + '</h5>');
+    $("#mod-book-side").append('<h5>' + myObj.numberOfPages + '</h5>');
+    $("#mod-book-side").append('<h5>Publication date: ' + myObj.publishDate + '</h5>');
 
-  $("#mod-book-side").append(this.stars(myObj.rating));
+    $("#mod-book-side").append(this.stars(myObj.rating));
 
-  $('#book-display-modal').modal('show');
+    $('#book-display-modal').modal('show');
 
 
-  return false;
+    return false;
 
-};
+  };
 
-SuggestBooksModal.prototype._removeData = function ()
-{
-  $("#mod-book-side").empty();
+  _removeData()
+  {
+    $("#mod-book-side").empty();
+  };
+
 };
 
 $(function()

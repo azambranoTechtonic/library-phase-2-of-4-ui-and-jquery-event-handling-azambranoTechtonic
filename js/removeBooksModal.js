@@ -1,37 +1,37 @@
-function RemoveBooksModal()
-{
-  Library.call(this); //resets context
-  this.$container = $('#remove-books-modal');//assign based on what targeting
-};
+class RemoveBooksModal extends Library {
 
-//Creates new library object
-RemoveBooksModal.prototype = Object.create(Library.prototype);
-
-RemoveBooksModal.prototype.init = function()
-{
-  this._bindEvents();
-};
-
-RemoveBooksModal.prototype._bindEvents = function ()
-{
-  $('#remove-book-button').on('click',$.proxy(this._removeBooksHandler,this));
-};
-
-RemoveBooksModal.prototype._removeBooksHandler = function ()
-{
-  var delTitle = $("#title-remove-input").val();
-  var delAuthor = $("#author-remove-input").val();
-
-  if (delTitle) {
-    this.removeBookByTitle(delTitle);
-  }
-  if (delAuthor) {
-    this.removeBookByAuthor(delAuthor);
+  constructor(oArgs) { //class constructor
+    super();
+    this.$container = $('#remove-books-modal');
   }
 
-  document.getElementById("form-remove-book").reset();
+  init()
+  {
+    this._bindEvents();
+  };
 
-  this.handleEventTrigger('objUpdate',window.bookShelf);
+  _bindEvents()
+  {
+    $('#remove-book-button').on('click',$.proxy(this._removeBooksHandler,this));
+  };
+
+  _removeBooksHandler()
+  {
+    var delTitle = $("#title-remove-input").val();
+    var delAuthor = $("#author-remove-input").val();
+
+    if (delTitle) {
+      this.removeBookByTitle(delTitle);
+    }
+    if (delAuthor) {
+      this.removeBookByAuthor(delAuthor);
+    }
+
+    document.getElementById("form-remove-book").reset();
+
+    this.handleEventTrigger('objUpdate',window.bookShelf);
+
+  };
 
 };
 

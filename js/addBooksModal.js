@@ -1,77 +1,76 @@
-function AddBooksModal()
-{
-  Library.call(this); //resets context
-  this.$container = $('#add-books-modal');//assign based on what targeting
-};
+class AddBooksModal extends Library {
 
-//Creates new library object
-AddBooksModal.prototype = Object.create(Library.prototype);
-
-AddBooksModal.prototype.init = function()
-{
-  this._bindEvents();
-};
-
-//Use the function below to add cover art as a base64 encoded string
-//https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
-//If you get stuck reference the documents in the link above
-AddBooksModal.prototype._handleImageUpload = function ()
-{
-  var preview = document.querySelector('#addBookCoverImage');
-  var file = document.querySelector('#cover-add-input').files[0];
-  var reader = new FileReader();
-
-  reader.addEventListener("load", function () {
-    preview.src = reader.result;
-  }, false);
-
-  if (file) {
-    return reader.readAsDataURL(file);
+  constructor(oArgs) { //class constructor
+    super();
+    this.$container = $('#add-books-modal');
+    this.arrQueue = [];
   }
-};
 
-AddBooksModal.prototype._bindEvents = function ()
-{
-  $('button#queue-book-button').on('click',$.proxy(this._queueBookHandler,this));
-  $('#add-books-button').on('click', $.proxy(this._addBooksHandler,this));
-  $('#cover-add-input').on('change', $.proxy(this._handleImageUpload,this));
-};
+  init()
+  {
+    this._bindEvents();
+  };
 
-var arrQueue = [];
+  //Use the function below to add cover art as a base64 encoded string
+  //https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
+  //If you get stuck reference the documents in the link above
+  _handleImageUpload()
+  {
+    var preview = document.querySelector('#addBookCoverImage');
+    var file = document.querySelector('#cover-add-input').files[0];
+    var reader = new FileReader();
 
-AddBooksModal.prototype._queueBookHandler = function (e)
-{
+    reader.addEventListener("load", function () {
+      preview.src = reader.result;
+    }, false);
 
-  e.preventDefault();
-
-  var mySerBook = $("#form-add-book").serializeArray();
-  var myBook = {};
-
-  myBook['cover'] = $('#addBookCoverImage').attr('src')
-  $.each(mySerBook, function(index, entry) {
-    if (entry.value) {
-      myBook[entry.name] = entry.value;
+    if (file) {
+      return reader.readAsDataURL(file);
     }
-  });
+  };
 
-  console.log(myBook);
+  _bindEvents()
+  {
+    $('button#queue-book-button').on('click',$.proxy(this._queueBookHandler,this));
+    $('#add-books-button').on('click', $.proxy(this._addBooksHandler,this));
+    $('#cover-add-input').on('change', $.proxy(this._handleImageUpload,this));
+  };
 
-  arrQueue.push(myBook);
+  _queueBookHandler(e)
+  {
 
-  document.getElementById("form-add-book").reset();
-  $('#addBookCoverImage').removeAttr('src');
+    e.preventDefault();
 
-  $('#add-books-counter').text(arrQueue.length);
+    var mySerBook = $("#form-add-book").serializeArray();
+    var myBook = {};
 
-  return true;
+    myBook['cover'] = $('#addBookCoverImage').attr('src')
+    $.each(mySerBook, function(index, entry) {
+      if (entry.value) {
+        myBook[entry.name] = entry.value;
+      }
+    });
 
-};
+    console.log(myBook);
 
-AddBooksModal.prototype._addBooksHandler = function ()
-{
-  this.addBooks(arrQueue);
-  $('#add-books-modal').modal('hide');
-  this.handleEventTrigger('objUpdate',window.bookShelf);
+    this.arrQueue.push(myBook);
+
+    document.getElementById("form-add-book").reset();
+    $('#addBookCoverImage').removeAttr('src');
+
+    $('#add-books-counter').text(this.arrQueue.length);
+
+    return true;
+
+  };
+
+  _addBooksHandler()
+  {
+    this.addBooks(this.arrQueue);
+    $('#add-books-modal').modal('hide');
+    this.handleEventTrigger('objUpdate',window.bookShelf);
+
+  };
 
 };
 
